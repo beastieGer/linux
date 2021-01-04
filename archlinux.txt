@@ -1,0 +1,119 @@
+####################
+##### surf + tabbed
+####################
+
+sudo pacman -S libvoikko hunspell hspell nuspell
+
+Ctrl+Shift+Enter    - открыть новую вкладку
+Ctrl+ 1-9   - перемещаться по вкладкам
+Ctrl+Tab    - перемещение между последними двумя вкладками
+Ctrl+q      - закрыть вкладку браузера
+Ctrl+r      - перегрузить страницу
+Ctrl+h/l    - переход назад/вперед
+Ctrl+j/k    - прокрутка страницы вверх/вниз
+Ctrl+i/u    - прокрутка страницы вправо/влево
+Ctrl+Shift+q    - сбросить масштаб
+Ctrl++/-    - масштабирование
+Ctrl+/      - строка поиска
+Ctrl+n      - перейти к следующему результату поиска
+Ctrl+g      - адресная строка
+Ctrl+Shift+a    - получить согласие на получение кукисов
+Ctrl+Shift+s    - включить/отключить скрипты
+
+-d  - отключить кэш
+-g  - не делиться местоположением
+-i  - отключить показ изображений
+-n  - отключить Developer Tools
+-p  - отключить плагины
+-s  - отключить JS
+
+# запуск surf с табами и homepage
+https://github.com/LukeSmithxyz/surf/blob/master/surf-open.sh
+# подправить эту строку и в низу добавить к surf -d -e и т.д
+tabbed -c -dn tabbed-surf -r 2 surf -e '' -d "$uri" >"$xidfile" \
+
+# пароли и формы - pass и скрипт для dmenu
+# закладки - писать скрипт или алиас для bash
+
+
+
+####################
+##### zathura - программа-просмотрщик файлов в форматах PDF, DjVu, PostScript и т. д.
+####################
+
+# https://ru.wikipedia.org/wiki/Zathura
+sudo pacman -S zathura zathura-djvu zathura-pdf-mupdf zathura-ps
+
+o   - Открыть документ
+a   - Подогнать размер документа под размер окна
+k,j - Прокрутка вверх/вниз
+J,K - Следующая страница/Предыдущая страница
+gg,GG   - Перейти на первую/последнюю страницу 
+zI/zO/z0    - Приблизить/отдалить/оригинальный размер
+/,? - Поиск вперёд по страницам, поиск назад
+n,N - Следующее/предыдущее найденное слово
+Tab - Показать оглавление (если имеется)
+154G    - Переход на страницу с определённым номером "номер страницыG" 
+Ctrl+i  - Изменить цвет фона и текста (белый фон черные буквы и наоборот)
+Ctrl+n  - Показать/скрыть статусную строку
+Ctrl+m  - Показать/скрыть строку ввода команд
+Ctrl+q  - Выход из программы с сохранением закладки
+
+# закладки
+bmark   - создать
+blist   - просмотр и переход
+bdelete - удалить
+
+
+~/.config/zathura/zathurarc
+# zathurarc
+# colors
+set statusbar_bgcolor #00FF00
+set statusbar_fgcolor red
+# settings
+set height 1024
+set width 768
+set adjust_open width
+# key bindings
+map <pageup> navigate previous
+map <pagedown> navigate next
+map + zoom in
+map - zoom out
+map <c-q> quit
+
+# Файл закладок создаётся автоматически при открытии первого файла и находится:
+~/.config/zathura/bookmarks
+
+
+
+####################
+##### alacritty
+####################
+
+# все что выделяется мышью сразу идет в буфер обмена
+save_to_clipboard: true
+
+
+
+####################
+##### VIM
+####################
+
+# РАЗОБРАТЬСЯ добавить в vim для html страниц
+:filetype indent on
+:set filetype=html
+:set shiftwidth=2
+:set smartindent
+gg
+=G
+
+
+####################
+##### SITE всякие разные
+####################
+
+http://htmlbook.ru/ - справочник по HTML CSS
+http://html.net/    - справочник по HTML HTML5 CSS PHP ASP JS, English версия
+http://ru.html.net/ - справочник по HTML CSS PHP
+https://www.w3schools.com/ - КРУТЬ учебник практика по HTML CSS JS, English
+https://jsfiddle.net/ - HTML CSS JS сразу пишем и видим результат, неплохо
