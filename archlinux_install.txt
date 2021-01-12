@@ -1,6 +1,138 @@
 ####################
 ##### Установка archlinux
-####################
+####################    САЙТЫ - igancev.ru
 
 # 1. Ставим русскую раскладку
 loadkeys ru
+
+# 2. Добавим в консоль шрифт, поддерживающий кириллицу
+setfont cyr-sun16
+
+# 3. Добавим русскую локаль
+nano /etc/locale.gen
+#ru_RU.UTF-8 UTF-8  # расскоментировать
+
+# 4. Обновляем текущую локаль системы
+locale-gen
+export LANG=ru_RU.UTF-8
+
+# 5. Разбиваем жесткий диск
+Загрузочный     200Mb
+Подкачка        4-6Gb
+Корень          80Gb
+Хомяк           ALL->
+
+cfdisk
+->>>>>->>>>> размечаем в программе
+
+# форматируем разделы
+mkfs.ext2   /dev/sda1 -L boot /boot
+mkswap      /dev/sda2 -L swap
+mkfs.ext4   /dev/sda3 -L root /
+mkfs.ext4   /dev/sda4 -L home /home # если переустанавливаем систему, то этот раздел можно не форматировать
+
+# монтируем разделы
+mount   /dev/sda3 /mnt
+mkdir   /mnt/{boot,home}
+mount   /dev/sda1   /mnt/boot
+mount   /dev/sda4   /mnt/home
+swapon  /dev/sda2
+
+# 6. Прописываем ближайший сервер
+nano    /etc/pacman.d/mirrorlist
+Server=http://mirror.yandex.ru/archlinux/$repo/os/$arch # не актуально, искать другой сервер
+
+# 7. Ставим базовые пакеты системы
+pacstrap -i /mnt base base-devel linux linux-firmware
+# если случается неверная pgp-подпись то делаем: pacman-key --refresh-keys
+
+# 8. Ставим загрузчик Grub и дополнительные пакеты системы
+arch-chroot /mnt pacman -S grub-bios vim dhcpcd netctl networkmanager network-manager-applet mc
+
+# 9. Генерируем fstab
+genfstab -U /mnt >> /mnt/etc/fstab
+
+# 10. Переходим в свежеустановленную систему
+arch-chroot /mnt /bin/bash
+
+# 11. Добавляем русскую локаль (убираем # в файле /etc/locale.gen)
+#en_US.UTF-8 UTF-8
+#ru_RU.UTF-8 UTF-8
+
+# 12. Обновляем локаль
+locale-gen
+
+# 13. Добавляем русскую локаль в консль
+nano /etc/mkinitcpio.conf
+# прописываем хук keymap  в разделе HOOKS
+# в разделе MODULES прописываем драйвер видеокарты radeon
+
+# 14. Создаем RAM диск
+mkiniicpio -p linux
+
+# 15. Ставим загрузчик
+grub-install /dev/sda
+
+# 16. Обновляем grub.cfg
+grub-mkconfig -o /boot/grub/grub.cfg
+
+# 17. Ставим пароль для root
+passwd
+
+# 18. Выходим из системы
+exit
+
+# 19. Отмонтироуем разделы
+umount /mnt/{boot,home}
+
+# 20. Перезагружаемся
+reboot
+
+####################
+##### Первичная настройка Arch Linux
+####################
+
+# 1. Заходим под root
+
+# 2. Меняем под себя данные в системе
+# имя компрьютера
+hostnamectl set-hostname excalibur
+# временная зона
+timedatectl set-timezone Europe/Kiev
+
+# 3. Русифицируем систему
+localectl set-keymap ru
+setfont cyr-sun16
+localectl set-locale LANG="ru-RU.UTF-8"
+export LANG=ru_RU.UTF-8
+# добавляем строку FONT=cyr-syn16  в файл /etc/vconsole.conf
+
+# 4. Обновляем загрузочный диск RAM
+mkinitcpio -p linux
+
+# 5. Обновляем grub.cfg
+grub-mkconfig -o /boot/grub/grub.cfg
+
+# 6. Настроим pacman
+nano /etc/pacman.conf
+# убираем # для доступа к 32 битным программам
+#[multilib]
+#Inlucde=/etc/...
+
+# 7. Добавим пользователя
+useradd -m -g users -G audio,games,lp,optical,power,scanner,storage,video,whell -s /bin/bash oleg
+passwd oleg
+chfn oleg
+
+# 8. Настраиваем сеть
+systemctl enable dhcpcd
+systemctl start dhcpcd
+
+# 9. Обновляем все пакеты в системе
+pacman -Syy
+pacman -Su
+
+# 10. Ставим и настраиваем sudo
+# в /etc/sudoers снимаем комментарий с 
+#%wheel ALL=(ALL) ALL
+# все это делаем через visudo
