@@ -1,0 +1,103 @@
+#1. Установка i3wm
+sudo pacman -S xorg-server xorg-xinit i3wm i3status dmenu i3lock
+
+#2. Прописываем в загрузку
+echo 'exec i3' >> ~/.xinitrc 
+
+#3. Программы
+xfce4-terminal chromium pcmanfm(или thunar) alacritty ntp git
+zathura zathura-djvu zathura-pdf-mupdf
+moc - консольный аудиоплеер
+mpv - консольный видеоплеер
+lxappearance - #LXAppearance — независимая от Окружения рабочего стола утилита настройки GTK+2 и GTK+3
+lm_sensors - #позволяет отслеживать температуру, напряжение, скорость вращения вентиляторов в вашей системе. вызывается - sensors
+
+#Шрифты
+ttf-ubuntu-font-family
+ttf-hack
+# FONT для gtk программ меняем в ~/.gtk-2.0 и ~/.config/gtk-3.0
+
+#yay
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+yay
+
+#4. Раскладка клавиатуры
+sudo pacman -S setxkbmap
+# в i3/config прописываем
+exec --no-startup-id setxkbmap -layout us,ru -option 'grp:caps_toggle'
+
+# вариант для i3status
+sudo pacman -S gxkb
+sudo -i
+localectl set-x11-keymap us,ru pc105 "" grp:caps_toggle
+# в i3/config прописываем
+exec --no-startup-id gxkb &
+
+#4. NetworkManager
+sudo pacman -S networkmanager network-manager-applet netctl dhcpcd
+sudo systemctl enable NetworkManager
+sudo systemctl start NetworkManager
+
+#5. rofi
+sudo pacman -S rofi
+bindsym $mod+d exec --no-startup-id dmenu_run # меняем на
+bindsym $mod+d exec --no-startup-id rofi -font "Terminus 14" -show run
+# theme -> sidebar by gbale, glue_pro_blue by Rasi, fancy by DaveDavenport
+
+#6. grub-customizer
+sudo pacman -S grub-customizer hwinfo os-prober ntfs-3g
+
+#7. Звук
+sudo pacman -S pavucontrol pulseaudio
+
+#8. Синхронизируем время
+timedatectl set-ntp true
+
+#9. slim
+sudo pacman -S slim archlinux-themes-slim
+systemctl enable slim
+# в /etc/slim.conf
+default_user oleg
+auto_login yes
+
+#10. polybar
+#иконки
+ttf-font-awesome ttf-ionicons ttf-font-awesome-4
+yay - siji-git ttf-unifont
+#https://fontawesome.com/icons?d=gallery
+
+ttf-weather-icons — Иконнки для скрипта погоды -> yay -S ...
+jq — этот пакет также нужен для скрипта для отображения погоды -> yay -S jq
+
+#11. NumLock
+sudo pacman -S numlockx
+#в i3/config
+exec --no-startup-id numlockx on
+
+#12. picom
+sudo pacman -S picom
+#github.com/dikiaap/dotfiles скопировать в -> ~/.config/picom/picom.conf
+
+#13. xev - коды клавиш
+sudo pacman -S xorg-xev
+
+#14. scrot - скриншотер
+scrot -s #выделяем область
+
+#делаем скрипт scrt.sh и делаем его исполняемым
+#! /bin/bash
+sleep 1.
+# scrot -s
+scrot --line style=dash,width=3,color="red" --select
+exit 0
+
+#в i3/config вешаем его на клавиши
+bindsym XF86Favorites exec '/home/oleg/scrt.sh' #выделения области
+bindsym Print exec scrot #скрин всего стола
+
+#15. galculator
+#делаем что-бы калькулятор всегда запускался в плавающем окошке
+#в i3/config
+for_window [class="Galculator"] floating enable

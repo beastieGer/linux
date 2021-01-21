@@ -3,6 +3,7 @@
 ####################
 
 sudo pacman -S libvoikko hunspell hspell nuspell
+sudo pacman -S gst-plugins-base lib32-gst-plugins-base # для HTML5
 
 Ctrl+Shift+Enter    - открыть новую вкладку
 Ctrl+ 1-9   - перемещаться по вкладкам
@@ -85,6 +86,14 @@ map <c-q> quit
 ~/.config/zathura/bookmarks
 
 
+####################
+##### reflector 
+####################
+# скрипт, который автоматизирует процесс настройки зеркал, включающий в себя загрузку свежего списка зеркал со страницы Mirror Status, фильтрацию из них наиболее обновленных, сортировку по скорости и сохранение в /etc/pacman.d/mirrorlist
+
+sudo reflector --country Ukraine --country Germany --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+
+
 
 ####################
 ##### alacritty
@@ -107,6 +116,9 @@ save_to_clipboard: true
 gg
 =G
 
+# YCM поставить приложения для python3 install.py --all
+cmake go npm jdk11-openjdk
+
 
 ####################
 ##### SITE всякие разные
@@ -117,3 +129,6 @@ http://html.net/    - справочник по HTML HTML5 CSS PHP ASP JS, Engli
 http://ru.html.net/ - справочник по HTML CSS PHP
 https://www.w3schools.com/ - КРУТЬ учебник практика по HTML CSS JS, English
 https://jsfiddle.net/ - HTML CSS JS сразу пишем и видим результат, неплохо
+https://www.markupeasy.ru/ - Marsy это сервис для верстальшиков и дизайнеров. Позволяет получить все необходимые для верстки данные из макета.
+https://mail.tutanota.com - почтовик
+http://protonmail.com - почтовик

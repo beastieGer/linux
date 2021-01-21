@@ -118,6 +118,7 @@ nano /etc/pacman.conf
 # убираем # для доступа к 32 битным программам
 #[multilib]
 #Inlucde=/etc/...
+# делаем pacman цветным, убирая решетку с #Colors
 
 # 7. Добавим пользователя
 useradd -m -g users -G audio,games,lp,optical,power,scanner,storage,video,wheel -s /bin/bash oleg
@@ -128,9 +129,8 @@ chfn oleg
 systemctl enable dhcpcd
 systemctl start dhcpcd
 
-# 9. Обновляем все пакеты в системе
-pacman -Syy
-pacman -Su
+# 9. Обновляем кэш репозиториев и все пакеты в системе
+pacman -Syyuu
 
 # 10. Ставим и настраиваем sudo
 # в /etc/sudoers снимаем комментарий с 
