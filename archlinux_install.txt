@@ -103,7 +103,7 @@ timedatectl set-timezone Europe/Kiev
 # 3. Русифицируем систему
 localectl set-keymap ru
 setfont cyr-sun16
-localectl set-locale LANG="ru-RU.UTF-8"
+localectl set-locale LANG="ru_RU.UTF-8"
 export LANG=ru_RU.UTF-8
 # добавляем строку FONT=cyr-syn16  в файл /etc/vconsole.conf
 
@@ -120,7 +120,7 @@ nano /etc/pacman.conf
 #Inlucde=/etc/...
 
 # 7. Добавим пользователя
-useradd -m -g users -G audio,games,lp,optical,power,scanner,storage,video,whell -s /bin/bash oleg
+useradd -m -g users -G audio,games,lp,optical,power,scanner,storage,video,wheel -s /bin/bash oleg
 passwd oleg
 chfn oleg
 
