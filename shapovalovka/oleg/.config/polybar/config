@@ -26,8 +26,10 @@ foreground-alt = #555
 primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
+blue = #0000ff
 
 [bar/example]
+monitor = ${env:MONITOR:HDMI-1}
 ; monitor = ${env:MONITOR:HDMI-0}
 width = 100%
 height = 27
@@ -54,10 +56,10 @@ module-margin-right = 2
 font-0 = fixed:pixelsize=10;1
 font-1 = FontAwesome:style=Regular:pixelsize=17
 font-2 = Weather Icons:size=12;1
-font-3 = siji:pixelsize=10;1
-font-4 = Inconsolata:size=18;1
-font-5 = unifont:fontformat=truetype:size=14:antialias=false;0
-font-6 = unifont:fontformat=truetype:size=10:antialias=false;0
+font-3 = unifont:fontformat=truetype:size=9
+;:antialias=false;0
+font-4 = Inconsolata:size=10;1
+font-5 = siji:pixelsize=11;1
 
 ;modules-left = bspwm i3
 modules-left = i3 mpd 
@@ -204,12 +206,13 @@ label-urgent-padding = 2
 ;;;;;;;;;
 [module/mpd]
 type = internal/mpd
-format-online = <bar-progress> <label-time> <icon-prev> <icon-stop> <toggle> <icon-next>  <label-song>
+format-online = <label-time> <icon-prev> <icon-stop> <toggle> <icon-next>  <label-song>
 format-offline = <label-offline>
 ; bar-progress-format = %{+o +u}%fill%%{-o -u}%indicator%%{+o +u}%empty%%{-u -o}
 bar-progress-format = %fill%%{-o -u}%indicator%%empty%%{-u -o}
 label-offline = mpd is off
-format-online-prefix = " "
+; format-online-prefix = " "
+; format-online-prefix = " "
 icon-play = ⏵
 icon-pause = ⏸
 icon-stop = ⏹
@@ -233,7 +236,7 @@ bar-progress-indicator-font = 2
 bar-progress-fill-font = 2
 bar-progress-fill-foreground = #6BB3E7
 bar-progress-empty-foreground = #666666
-bar-progress-indicator-foreground = #666666A85659
+bar-progress-indicator-foreground = #666666
 
 
 
@@ -467,9 +470,10 @@ label-close-foreground = ${colors.secondary}
 label-separator = |
 label-separator-foreground = ${colors.foreground-alt}
 
-menu-0-0 = R
+menu-0-0 = ♻     
+menu-0-0-foreground = ${colors.blue}
 menu-0-0-exec = reboot
-menu-0-1 = P
+menu-0-1 = ⏻
 menu-0-1-exec = shutdown -h now
 ; menu-0-2 = cancel
 ; menu-0-2-exec = menu-open-0

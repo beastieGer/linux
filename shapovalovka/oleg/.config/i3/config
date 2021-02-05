@@ -36,7 +36,10 @@ exec --no-startup-id nm-applet &
 
 exec_always --no-startup-id setxkbmap -model pc105 -layout us,ru -option 'grp:caps_toggle'
 exec --no-startup-id numlockx on &
-exec --no-startup-id nitrogen --restore; sleep 1; exec picom -b
+exec --no-startup-id nitrogen --restore
+# exec picom --no-fading-openclose --inactive-dim-fixed --config /dev/null
+exec compton --backend glx &
+#; sleep 1; exec picom -b
 # exec picom -b --inactive-dim 0.2 --no-fading-openclose --inactive-dim-fixed --config /dev/null
 # exec_always --no-startup-id "killall -q picom; picom --config $HOME/.config/picom.conf"
 # exec killall dunst && dunst -conf ~/.config/dunst &
@@ -67,8 +70,10 @@ bindsym XF86Calculator exec --no-startup-id galculator
 bindsym XF86Tools exec --no-startup-id mpc play 
 bindsym XF86AudioPlay exec --no-startup-id mpc toggle
 bindsym XF86AudioStop exec --no-startup-id mpc repeat 
-bindsym XF86Forward exec --no-startup-id mpc next
-bindsym XF86Back exec --no-startup-id mpc prev
+# bindsym XF86Forward exec --no-startup-id mpc next
+# bindsym XF86Back exec --no-startup-id mpc prev
+bindsym XF86AudioNext exec --no-startup-id mpc next
+bindsym XF86AudioPrev exec --no-startup-id mpc prev
 
 # привязка приложений к столу при автозапуске
 exec --no-startup-id i3-msg 'workspace 2; exec chromium; workspace 1; exec xfce4-terminal; workspace 2'
